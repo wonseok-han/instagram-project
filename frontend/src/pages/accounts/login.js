@@ -36,13 +36,15 @@ const Login = () => {
         // const {
         //   data: { token }
         // } = response; // => const token = response.data.token;와 같은 의미
-        const { data: jwtToken } = response;
+        const {
+          data: { token: jwtToken }
+        } = response;
         // setJwtToken(jwtToken);
         dispatch(setToken(jwtToken));
 
         notification.open({
-          message: "회원가입 성공",
-          description: "로그인 페이지로 이동합니다.",
+          message: "로그인 성공",
+          description: "Home으로 이동합니다.",
           icon: <SmileOutlined style={{ color: "#108ee0" }} />
         });
 
