@@ -8,6 +8,8 @@ from django.db import models
 from django.shortcuts import resolve_url
 
 # Create your models here.
+
+
 class User(AbstractUser):
     class GenderChoices(models.TextChoices):
         MALE = "M", "남성"
@@ -23,7 +25,8 @@ class User(AbstractUser):
         blank=True,
         validators=[RegexValidator(r"^010-?[1-9\d{3}-?\d{4}$")],
     )
-    gender = models.CharField(max_length=1, blank=True, choices=GenderChoices.choices)
+    gender = models.CharField(max_length=1, blank=True,
+                              choices=GenderChoices.choices)
     avatar = models.ImageField(
         blank=True,
         upload_to="accounts/avatar/%Y/%m/%d",
@@ -32,7 +35,7 @@ class User(AbstractUser):
 
     @property
     def name(self):
-        return f"{self.first_name} {self.last_name}"
+        return f"{self.first_name} {self.last_name}".strip()
 
     @property
     def avatar_url(self):
@@ -43,10 +46,11 @@ class User(AbstractUser):
 
     def send_welcome_email(self):
         subject = render_to_string(
-            "accounts/welcome_email_subject.txt", {"user": self,}
+            "accounts/welcome_email_subject.txt", {"user": self, }
         )
         content = render_to_string(
-            "accounts/welcome_email_content.txt", {"user": self,}
+            "accounts/welcome_email_content.txt", {"user": self, }
         )
         sender_email = settings.WELCOME_EMAIL_SENDER
-        send_mail(subject, content, send_mail, [self.email], fail_silently=False)
+        send_mail(subject, content, send_mail, [
+                  self.email], fail_silently=False)
