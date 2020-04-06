@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Alert } from "antd";
 import Axios from "axios";
 import Post from "./post";
 import { useAppContext } from "store";
@@ -28,6 +29,9 @@ const PostList = () => {
 
   return (
     <div>
+      {postList.length === 0 && (
+        <Alert type="warning" message="포스팅이 없습니다." />
+      )}
       {postList.map(post => (
         <Post key={post.id} post={post} />
       ))}
