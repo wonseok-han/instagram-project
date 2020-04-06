@@ -94,7 +94,9 @@ const SignUp = () => {
     }
   };
 
+  // Ant Design에서의 onFinish가 onSubmit의 역할을 한다.
   const onFinish = values => {
+    // async, await : async로 선언된 함수에서 코드가 나열된 순서대로 수행된다.
     async function fn() {
       const { username, password } = values;
 
@@ -110,6 +112,7 @@ const SignUp = () => {
           icon: <SmileOutlined style={{ color: "#108ee0" }} />
         });
 
+        // 회원가입에 성공하면 로그인 페이지로 이동
         history.push("/accounts/login");
       } catch (error) {
         if (error.response) {
@@ -118,7 +121,7 @@ const SignUp = () => {
             description: "아이디/암호를 확인해주세요.",
             icon: <FrownOutlined style={{ color: "#ff3333" }} />
           });
-          const { data: fieldsErrorMessages } = error.response;
+          const { data: fieldsErrorMessages } = error.response; // fieldsErrorMessages = error.response.data와 같은 표현
           //   fieldsErrorMessages => {username: ["m1", "m2"], password: ["p1", "p2"]}
           setFieldErrors(
             Object.entries(fieldsErrorMessages).reduce(

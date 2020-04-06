@@ -6,6 +6,7 @@ import { useAppContext } from "store";
 const apiUrl = "http://localhost:8000/api/posts/";
 
 const PostList = () => {
+  // store에서 로그인시 받아오는 jwtToken, dispatch를 사용할 수 있음.
   const {
     store: { jwtToken },
     dispatch

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { Alert, Form, Input, Button, notification, Card } from "antd";
 import { SmileOutlined, FrownOutlined } from "@ant-design/icons";
 import Axios from "axios";
@@ -9,11 +9,18 @@ import { setToken } from "store";
 
 const Login = () => {
   const { dispatch } = useAppContext();
+  const location = useLocation();
   const history = useHistory();
   // const [jwtToken, setJwtToken] = useLocalStorage("jwtToken", "");
   const [fieldErrors, setFieldErrors] = useState({});
 
+  const { from: loginRedirectUrl } = location.state || {
+    from: { pathname: "/" }
+  };
+
+  // Ant Design에서의 onFinish가 onSubmit의 역할을 한다.
   const onFinish = values => {
+    // async, await : async로 선언된 함수에서 코드가 나열된 순서대로 수행된다.
     async function fn() {
       const { username, password } = values;
 
@@ -40,7 +47,7 @@ const Login = () => {
         });
 
         // 성공 후 이동경로
-        // history.push("/accounts/login");
+        history.push(loginRedirectUrl);
       } catch (error) {
         if (error.response) {
           notification.open({

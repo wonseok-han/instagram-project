@@ -20,7 +20,8 @@ const reducer = (prevState, action) => {
     const { payload: jwtToken } = action;
     const newState = {
       ...prevState,
-      jwtToken
+      jwtToken,
+      isAuthenticated: true
     };
     // http 통신이나 파일저장이 필요하면 UpdateWithSideEffect 사용
     return UpdateWithSideEffect(newState, (state, dispatch) => {
@@ -29,7 +30,8 @@ const reducer = (prevState, action) => {
   } else if (type === DELETE_TOKEN) {
     const newState = {
       ...prevState,
-      jwtToken: ""
+      jwtToken: "",
+      isAuthenticated: false
     };
     return UpdateWithSideEffect(newState, (state, dispatch) => {
       setStorageItem("jwtToken", "");
@@ -40,8 +42,10 @@ const reducer = (prevState, action) => {
 };
 
 export const AppProvider = ({ children }) => {
+  const jwtToken = getStorageItem("jwtToken", "");
   const [store, dispatch] = useReducerWithSideEffects(reducer, {
-    jwtToken: getStorageItem("jwtToken", "")
+    jwtToken,
+    isAuthenticated: jwtToken.length > 0
   });
   return (
     <AppContext.Provider value={{ store, dispatch }}>
