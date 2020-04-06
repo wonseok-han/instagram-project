@@ -8,7 +8,6 @@ import AccountRoutes from "./accounts";
 const Root = () => {
   return (
     <Layout>
-      최상위 컴포넌트
       <Route exact={true} path="/" component={Home} />
       <Route exact path="/about" component={About} />
       <Route path="/accounts" component={AccountRoutes} />

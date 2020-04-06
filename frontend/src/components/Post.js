@@ -1,11 +1,24 @@
 import React from "react";
+import { Card, Avatar } from "antd";
+import { HeartOutlined, HeartFilled, UserOutlined } from "@ant-design/icons";
 
 const Post = ({ post }) => {
   const { caption, location, photo } = post;
   return (
     <div>
-      <img src={photo} alrt={caption} style={{ width: "100px" }} />
-      {photo}, {caption}, {location}
+      <Card
+        hoverable
+        cover={<img src={photo} alt={caption} />}
+        actions={[<HeartFilled />]}
+      >
+        <Card.Meta
+          avatar={<Avatar size="large" icon={<UserOutlined />} />}
+          title={location}
+          description={caption}
+        />
+      </Card>
+      {/* <img src={photo} alrt={caption} style={{ width: "100px" }} />
+      {caption}, {location} */}
     </div>
   );
 };
