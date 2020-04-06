@@ -1,16 +1,18 @@
 .suggestion {
-    display: grid;
-    grid-template-columns: 32px 2fr 1fr;
-    align-items: center;
-    margin-bottom: 0.5em;
+  display: grid;
+  grid-template-columns: 32px 2fr 1fr;
+  align-items: center;
+  margin-bottom: 0.5em;
 
-    .avatar {
-        justify-self: center;
-    }
+  .avatar {
+    justify-self: center;
+    margin-right: 0.5em;
+  }
 
-    .username {}
+  .username {
+  }
 
-    .action {
-        justify-self: right;
-    }
+  .action {
+    justify-self: right;
+  }
 }
