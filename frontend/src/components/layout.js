@@ -1,11 +1,9 @@
 import React from "react";
 import { Input, Menu } from "antd";
 import "./layout.scss";
-import StoryList from "./storyList";
-import SuggestionList from "./suggestionList";
 import LogoImage from "assets/instagram_logo.png";
 
-const Layout = ({ children, ...props }) => {
+const Layout = ({ children, sidebar, ...props }) => {
   return (
     <div className="app">
       <div className="header">
@@ -23,10 +21,7 @@ const Layout = ({ children, ...props }) => {
           </Menu>
         </div>
       </div>
-      <div className="sidebar">
-        <StoryList style={{ marginBottom: "1rem" }} />
-        <SuggestionList></SuggestionList>
-      </div>
+      <div className="sidebar">{sidebar}</div>
       <div className="contents">{children}</div>
       <div className="footer">&copy; 2020. Han Won Seok</div>
     </div>

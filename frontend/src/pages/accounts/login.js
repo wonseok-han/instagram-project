@@ -4,6 +4,7 @@ import { Alert, Form, Input, Button, notification, Card } from "antd";
 import { SmileOutlined, FrownOutlined } from "@ant-design/icons";
 import Axios from "axios";
 import useLocalStorage from "utils/useLocalStorage";
+import parseErrorMessages from "utils/forms";
 import { useAppContext } from "store";
 import { setToken } from "store";
 
@@ -59,20 +60,8 @@ const Login = () => {
           });
           const { data: fieldsErrorMessages } = error.response;
           //   fieldsErrorMessages => {username: ["m1", "m2"], password: ["p1", "p2"]}
-          setFieldErrors(
-            Object.entries(fieldsErrorMessages).reduce(
-              (acc, [fieldName, errors]) => {
-                //   errors : ["m1", "m2"].join(" ") => "m1 m2"
-                acc[fieldName] = {
-                  validateStatus: "error",
-                  help: errors.join(" ")
-                };
 
-                return acc;
-              },
-              {}
-            )
-          );
+          setFieldErrors(parseErrorMessages(fieldsErrorMessages));
         }
       }
     }

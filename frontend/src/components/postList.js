@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Alert } from "antd";
 import Axios from "axios";
+import useAxios from "axios-hooks";
 import Post from "./post";
 import { useAppContext } from "store";
 
@@ -12,29 +13,31 @@ const PostList = () => {
     store: { jwtToken },
     dispatch
   } = useAppContext();
-  const [postList, setPostList] = useState([]);
-  useEffect(() => {
-    const headers = { Authorization: `JWT ${jwtToken}` };
-    Axios.get(apiUrl, { headers })
-      .then(response => {
-        const { data } = response;
-        console.log(response);
-        setPostList(data);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-    console.log("mounted");
-  }, []);
+
+  const headers = { Authorization: `JWT ${jwtToken}` };
+  const [{ data: postList, loading, error }, refetch] = useAxios({
+    url: apiUrl,
+    headers
+  });
+  // const [postList, setPostList] = useState([]);
+  // useEffect(() => {
+  // const headers = { Authorization: `JWT ${jwtToken}` };
+  // Axios.get(apiUrl, { headers })
+  //   .then(response => {
+  //     const { data } = response;
+  //     console.log(response);
+  //     setPostList(data);
+  //   })
+  //   .catch(error => {
+  //     console.log(error);
+  //   });
+  // console.log("mounted");
+  // }, []);
 
   return (
     <div>
-      {postList.length === 0 && (
-        <Alert type="warning" message="포스팅이 없습니다." />
-      )}
-      {postList.map(post => (
-        <Post key={post.id} post={post} />
-      ))}
+      {!postList && <Alert type="warning" message="포스팅이 없습니다." />}
+      {postList && postList.map(post => <Post key={post.id} post={post} />)}
     </div>
   );
 };
