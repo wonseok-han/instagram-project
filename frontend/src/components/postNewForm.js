@@ -4,7 +4,8 @@ import { Form, Input, Button, Upload, Modal, notification } from "antd";
 import { PlusOutlined, FrownOutlined } from "@ant-design/icons";
 import getBase64FromFile from "utils/base64";
 import parseErrorMessages from "utils/forms";
-import Axios from "axios";
+// import Axios from "axios";
+import { axiosInstance, useAxios } from "api";
 import { useAppContext } from "store";
 
 const PostNewForm = () => {
@@ -39,11 +40,9 @@ const PostNewForm = () => {
 
     const headers = { Authorization: `JWT ${jwtToken}` };
     try {
-      const response = await Axios.post(
-        "http://localhost:8000/api/posts/",
-        formData,
-        { headers }
-      );
+      const response = await axiosInstance.post("/api/posts/", formData, {
+        headers
+      });
       console.log("success response:::" + response);
       history.push("/");
     } catch (error) {

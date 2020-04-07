@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { Alert, Form, Input, Button, notification, Card } from "antd";
 import { SmileOutlined, FrownOutlined } from "@ant-design/icons";
-import Axios from "axios";
+// import Axios from "axios";
+import { axiosInstance } from "api";
 import useLocalStorage from "utils/useLocalStorage";
 import parseErrorMessages from "utils/forms";
 import { useAppContext } from "store";
@@ -29,10 +30,7 @@ const Login = () => {
 
       const data = { username, password };
       try {
-        const response = await Axios.post(
-          "http://localhost:8000/accounts/token/",
-          data
-        );
+        const response = await axiosInstance.post("/accounts/token/", data);
         // const { data: token } = response; // => const token = response.data;와 같은 의미
         // const {
         //   data: { token }
