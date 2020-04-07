@@ -168,7 +168,6 @@ const PostNewForm = () => {
         />
       </Modal>
       <hr />
-      {JSON.stringify(fileList)}
     </Form>
   );
 };

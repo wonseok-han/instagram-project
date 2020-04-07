@@ -38,7 +38,6 @@ const CommentList = ({ post }) => {
         commentList.map(comment => {
           return <Comment key={comment.id} comment={comment} />;
         })}
-      current comment content : {commentContent}
       <Input.TextArea
         style={{ marginBottom: "0.5em" }}
         value={commentContent}
